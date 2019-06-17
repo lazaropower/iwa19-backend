@@ -24,7 +24,6 @@ public class UserCourse implements Serializable {
         this.grade = grade;
     }
 
-
     @Embeddable
     public static class UserCourseId implements Serializable {
 
