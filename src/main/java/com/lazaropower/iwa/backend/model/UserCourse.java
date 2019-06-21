@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name="user_course")
 public class UserCourse implements Serializable {
 
     @EmbeddedId

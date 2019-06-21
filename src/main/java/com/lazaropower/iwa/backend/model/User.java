@@ -20,17 +20,23 @@ public class User {
     private String email;
 
     @NotBlank
-    @Size(min=6, max=100)
+   //@Size(min=6, max=30)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "user_course",
+                joinColumns = @JoinColumn(referencedColumnName = "id", name = "userId"),
+                inverseJoinColumns = @JoinColumn(referencedColumnName = "id", name = "courseId"))
+    private Set<Course> courses = new HashSet<>();
+
     public User() {
 
     }
 
-    public User(@NotBlank @Email String email, @NotBlank @Size(min=6, max=100) String password) {
+    public User(@NotBlank @Email String email, String password) {
         this.email = email;
         this.password = password;
     }
@@ -65,5 +71,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }
