@@ -52,14 +52,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    //TODO: Modify this according to the roles of our applications
+    //TODO: Modify this according to the roles of our application
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("/restApi/auth/**").permitAll()
-                .antMatchers("/restApi/courses/**").hasAnyRole("ADMIN","USER") // or for one role: hasRole("ADMIN")
-                .antMatchers("/restApi/exampleSecurity/user").hasRole("USER")
+                .antMatchers("/restApi/auth/signin").permitAll()
+                .antMatchers("/restApi/auth/signup").hasRole("ADMIN")
+                .antMatchers("/restApi/courses/**").hasAnyRole("ADMIN", "STUDENT", "PROFESSOR") // or for one role: hasRole("ADMIN")
+                .antMatchers("/restApi/exampleSecurity/student").hasRole("STUDENT")
+                .antMatchers("/restApi/exampleSecurity/admin").hasRole("ADMIN")
                 .antMatchers("/restApi/exampleSecurity/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

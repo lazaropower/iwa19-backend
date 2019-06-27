@@ -23,6 +23,12 @@ public class User {
    //@Size(min=6, max=30)
     private String password;
 
+    @NotBlank
+    private String firstname;
+
+    @NotBlank
+    private String surname;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
@@ -36,7 +42,9 @@ public class User {
 
     }
 
-    public User(@NotBlank @Email String email, String password) {
+    public User(@NotBlank String firstname, @NotBlank String surname, @NotBlank @Email String email, String password) {
+        this.firstname = firstname;
+        this.surname = surname;
         this.email = email;
         this.password = password;
     }
@@ -79,5 +87,21 @@ public class User {
 
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }

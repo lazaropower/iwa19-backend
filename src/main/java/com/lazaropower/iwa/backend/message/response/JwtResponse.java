@@ -17,19 +17,19 @@ public class JwtResponse {
         this.authorities = authorities;
     }
 
-    public String getToken() {
+    public String getAccessToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setAccessToken(String token) {
         this.token = token;
     }
 
-    public String getType() {
+    public String getTokenType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setTokenType(String type) {
         this.type = type;
     }
 

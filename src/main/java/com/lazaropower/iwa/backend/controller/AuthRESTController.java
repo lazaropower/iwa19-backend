@@ -66,12 +66,11 @@ public class AuthRESTController {
         }
 
         // Create user account
-        User user = new User(signUpRequest.getEmail(), passwordEncoder.encode(signUpRequest.getPassword()));
+        User user = new User(signUpRequest.getFirstname(), signUpRequest.getSurname(), signUpRequest.getEmail(), passwordEncoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
-        //TODO: Implementar los roles que faltan STUDENT; PROFESSOR; ADMIN
         strRoles.forEach(role -> {
             switch (role) {
                 case "admin":
@@ -79,10 +78,19 @@ public class AuthRESTController {
                             .orElseThrow(() -> new RuntimeException("Fail -> Cause: Admin Role not found."));
                     roles.add(adminRole);
                     break;
-                default:
-                    Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                            .orElseThrow(() -> new RuntimeException("Fail -> Cause: User Role not found."));
-                    roles.add(userRole);
+                case "student":
+                    Role studentRole = roleRepository.findByName(RoleName.ROLE_STUDENT)
+                            .orElseThrow(() -> new RuntimeException("Fail -> Cause: Student Role not found."));
+                    roles.add(studentRole);
+                    break;
+                case "professor":
+                    Role professorRole = roleRepository.findByName(RoleName.ROLE_PROFESSOR)
+                            .orElseThrow(() -> new RuntimeException("Fail -> Cause: Professor Role not found."));
+                    roles.add(professorRole);
+                    break;
+                    default:
+                        System.out.println("Ha entrado aqui");
+                        throw new RuntimeException("Fail -> Cause: Role not found.");
             }
         });
 

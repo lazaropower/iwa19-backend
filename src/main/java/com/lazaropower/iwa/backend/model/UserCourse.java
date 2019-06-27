@@ -18,6 +18,24 @@ public class UserCourse implements Serializable {
 
     }
 
+    /**
+     * To add an user to a course.
+     * @param user
+     * @param course
+     */
+    public UserCourse(User user, Course course){
+        UserCourseId userCourseId = new UserCourseId();
+        userCourseId.userId = user.getId();
+        userCourseId.courseId = course.getId();
+        this.grade = null;
+    }
+
+    /**
+     * To add a grade to an specific user in an specific course.
+     * @param user
+     * @param course
+     * @param grade
+     */
     public UserCourse(User user, Course course, Float grade){
         UserCourseId userCourseId = new UserCourseId();
         userCourseId.userId = user.getId();
